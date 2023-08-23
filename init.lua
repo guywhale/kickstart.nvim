@@ -195,6 +195,8 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
+  -- Automatically close brackets 
+  { 'm4xshen/autoclose.nvim', opts = {} },
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -529,5 +531,7 @@ cmp.setup {
   },
 }
 
+-- Set up and configure close brackets
+require("autoclose").setup()
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
