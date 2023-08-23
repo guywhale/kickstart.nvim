@@ -456,6 +456,11 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  -- intelephense = {
+  --   intelephense = {
+  --     licenceKey = { },
+  --   },
+  -- },
 }
 
 -- Setup neovim lua configuration
