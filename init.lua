@@ -107,6 +107,9 @@ require('lazy').setup({
     },
   },
 
+  -- Plugin for using linters: https://github.com/mfussenegger/nvim-lint
+  { 'mfussenegger/nvim-lint' },
+
   -- Useful plugin to show you pending keybinds.
   { 'folke/which-key.nvim', opts = {} },
   {
@@ -537,6 +540,18 @@ cmp.setup {
     { name = 'luasnip' },
   },
 }
+
+-- Configure linters by file type
+require('lint').linters_by_ft = {
+  php = {'phpcs',}
+}
+
+-- Set up an autocmd to trigger linting
+vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+  callback = function()
+    require("lint").try_lint()
+  end,
+})
 
 -- Set up and configure close brackets
 require("autoclose").setup()
