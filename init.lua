@@ -129,6 +129,7 @@ require('lazy').setup({
     },
   },
 
+  -- Set theme here
   {
     'rose-pine/neovim',
     name = 'rose-pine',
