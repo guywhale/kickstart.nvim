@@ -456,6 +456,7 @@ local servers = {
       telemetry = { enable = false },
     },
   },
+  -- NOTE: Intelephense only works inside of a Git initialised directory.
   -- intelephense = {
   --   intelephense = {
   --     licenceKey = { },
