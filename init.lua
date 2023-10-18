@@ -161,10 +161,8 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl",
+    opts = {},
   },
 
   -- "gc" to comment visual regions/lines
@@ -203,14 +201,12 @@ require('lazy').setup({
   { 'm4xshen/autoclose.nvim', opts = {} },
 
   -- Live server
-  -- https://github.com/barrett-ruth/live-server.nvim
-  require('lazy').setup {
-    {
-        'barrett-ruth/live-server.nvim',
-        build = 'npm install --global live-server',
-        config = true
-    }
-}
+  {
+      'barrett-ruth/live-server.nvim',
+      build = 'yarn global add live-server',
+      config = true
+  },
+
 
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
@@ -556,6 +552,9 @@ cmp.setup {
 require('lint').linters_by_ft = {
   php = {'phpcs',}
 }
+
+-- Indent blank lines
+require("ibl").setup()
 
 -- Set up an autocmd to trigger linting
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
