@@ -84,7 +84,7 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = 'legacy', opts = {} },
+      { 'j-hui/fidget.nvim',       tag = 'legacy', opts = {} },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -111,7 +111,7 @@ require('lazy').setup({
   { 'mfussenegger/nvim-lint' },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',  opts = {} },
   {
     -- Adds git related signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
@@ -125,7 +125,8 @@ require('lazy').setup({
         changedelete = { text = '~' },
       },
       on_attach = function(bufnr)
-        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk, { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
+        vim.keymap.set('n', '<leader>gp', require('gitsigns').prev_hunk,
+          { buffer = bufnr, desc = '[G]o to [P]revious Hunk' })
         vim.keymap.set('n', '<leader>gn', require('gitsigns').next_hunk, { buffer = bufnr, desc = '[G]o to [N]ext Hunk' })
         vim.keymap.set('n', '<leader>ph', require('gitsigns').preview_hunk, { buffer = bufnr, desc = '[P]review [H]unk' })
       end,
@@ -140,6 +141,23 @@ require('lazy').setup({
     config = function()
       vim.cmd.colorscheme 'rose-pine'
     end,
+  },
+  {
+    "folke/tokyonight.nvim",
+    lazy = false,
+    priority = 1000,
+    --   config = function()
+    --     vim.cmd.colorscheme 'tokyonight'
+    --   end,
+    opts = {},
+  },
+  {
+    "catppuccin/nvim",
+    name = "catppuccin",
+    priority = 1000,
+    -- config = function()
+    --   vim.cmd.colorscheme "catppuccin-mocha"
+    -- end,
   },
 
   {
@@ -166,7 +184,7 @@ require('lazy').setup({
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',  opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   {
@@ -197,21 +215,27 @@ require('lazy').setup({
     },
     build = ':TSUpdate',
   },
-  -- Automatically close brackets 
+  -- Automatically close brackets
   { 'm4xshen/autoclose.nvim', opts = {} },
 
   -- Live server
   {
-      'barrett-ruth/live-server.nvim',
-      build = 'yarn global add live-server',
-      config = true
+    'barrett-ruth/live-server.nvim',
+    build = 'yarn global add live-server',
+    config = true
   },
 
-
+  -- ToggleTerm floating terminal
+  -- https://github.com/akinsho/toggleterm.nvim
+  {
+    'akinsho/toggleterm.nvim',
+    version = "*",
+    config = true
+  },
   -- NOTE: Next Step on Your Neovim Journey: Add/Configure additional "plugins" for kickstart
   --       These are some example plugins that I've included in the kickstart repository.
   --       Uncomment any of the lines below to enable them.
-  -- require 'kickstart.plugins.autoformat',
+  require 'kickstart.plugins.autoformat',
   -- require 'kickstart.plugins.debug',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
@@ -310,7 +334,8 @@ require('telescope').setup {
 pcall(require('telescope').load_extension, 'fzf')
 
 -- See `:help telescope.builtin`
-vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files, { desc = '[ff] Find files in current directory' })
+vim.keymap.set('n', '<leader>ff', require('telescope.builtin').find_files,
+  { desc = '[ff] Find files in current directory' })
 vim.keymap.set('n', '<leader>?', require('telescope.builtin').oldfiles, { desc = '[?] Find recently opened files' })
 vim.keymap.set('n', '<leader><space>', require('telescope.builtin').buffers, { desc = '[ ] Find existing buffers' })
 vim.keymap.set('n', '<leader>/', function()
@@ -550,11 +575,15 @@ cmp.setup {
 
 -- Configure linters by file type
 require('lint').linters_by_ft = {
-  php = {'phpcs',}
+  php = { 'phpcs', }
 }
 
 -- Indent blank lines
-require("ibl").setup()
+require("ibl").setup({
+  indent = {
+    char = "╎",
+  }
+})
 
 -- Set up an autocmd to trigger linting
 vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -565,5 +594,27 @@ vim.api.nvim_create_autocmd({ "BufWritePost" }, {
 
 -- Set up and configure close brackets
 require("autoclose").setup()
+
+
+-- Set up and configure ToggleTerm
+require("toggleterm").setup {
+  size = 20,
+  open_mapping = [[<c-\>]],
+  direction = 'float',
+}
+
+function _G.set_terminal_keymaps()
+  local opts = { buffer = 0 }
+  vim.keymap.set('t', '<esc>', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', 'jk', [[<C-\><C-n>]], opts)
+  vim.keymap.set('t', '<C-h>', [[<Cmd>wincmd h<CR>]], opts)
+  vim.keymap.set('t', '<C-j>', [[<Cmd>wincmd j<CR>]], opts)
+  vim.keymap.set('t', '<C-k>', [[<Cmd>wincmd k<CR>]], opts)
+  vim.keymap.set('t', '<C-l>', [[<Cmd>wincmd l<CR>]], opts)
+  vim.keymap.set('t', '<C-w>', [[<C-\><C-n><C-w>]], opts)
+end
+
+-- if you only want these mappings for toggle term use term://*toggleterm#* instead
+vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
 -- The line beneath this is called `modeline`. See `:help modeline`
 -- vim: ts=2 sts=2 sw=2 et
