@@ -138,25 +138,32 @@ require('lazy').setup({
     'rose-pine/neovim',
     name = 'rose-pine',
     priority = 1000,
+    -- config = function()
+    --   vim.cmd.colorscheme 'rose-pine-moon'
+    -- end,
+  },
+  {
+    'talha-akram/noctis.nvim',
+    name = 'noctis_uva',
+    priority = 1000,
+    -- config = function()
+    --   vim.cmd.colorscheme 'noctis_uva'
+    -- end,
+  },
+  {
+    'mhartington/oceanic-next',
+    name = 'OceanicNext',
+    priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'rose-pine'
+      vim.cmd.colorscheme 'OceanicNext'
     end,
   },
   {
-    "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
-    --   config = function()
-    --     vim.cmd.colorscheme 'tokyonight'
-    --   end,
-    opts = {},
-  },
-  {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    'nordtheme/vim',
+    name = 'nord',
     priority = 1000,
     -- config = function()
-    --   vim.cmd.colorscheme "catppuccin-mocha"
+    --   vim.cmd.colorscheme 'nord'
     -- end,
   },
 
@@ -600,7 +607,7 @@ require("autoclose").setup()
 require("toggleterm").setup {
   size = 20,
   open_mapping = [[<c-\>]],
-  direction = 'float',
+  direction = 'tab',
 }
 
 function _G.set_terminal_keymaps()
