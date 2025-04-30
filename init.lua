@@ -139,24 +139,24 @@ require('lazy').setup({
     name = 'rose-pine',
     priority = 1000,
     -- config = function()
-    --   vim.cmd.colorscheme 'rose-pine-moon'
+    --   vim.cmd.colorscheme 'rose-pine'
     -- end,
   },
   {
     'talha-akram/noctis.nvim',
-    name = 'noctis_uva',
+    name = 'noctis_minimus',
     priority = 1000,
-    -- config = function()
-    --   vim.cmd.colorscheme 'noctis_uva'
-    -- end,
+    config = function()
+      vim.cmd.colorscheme 'noctis_minimus'
+    end,
   },
   {
     'mhartington/oceanic-next',
     name = 'OceanicNext',
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'OceanicNext'
-    end,
+    -- config = function()
+    --   vim.cmd.colorscheme 'OceanicNext'
+    -- end,
   },
   {
     'nordtheme/vim',
